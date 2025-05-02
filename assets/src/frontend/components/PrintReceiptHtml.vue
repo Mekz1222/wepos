@@ -12,7 +12,7 @@
                     <tr v-for="item in printdata.line_items">
                         <td class="name">
                             {{ item.name }}
-                            <span v-if="settings.woo_tax.wc_tax_display_cart === 'incl'" class="tax-info">{{ __( 'Tax includes', 'wepos' ) }}: {{ formatPrice( item.total_tax ) }}</span>
+                            <span v-if="settings.woo_tax.wc_tax_display_cart === 'incl'" class="tax-info">{{ __( 'ALV Sisältyy hintaan', 'wepos' ) }}: {{ formatPrice( item.total_tax ) }}</span>
                             <div class="attribute" v-if="item.attribute.length > 0">
                                 <ul>
                                     <li v-for="attribute_item in item.attribute">
@@ -34,27 +34,20 @@
                     </tr>
                     <tr class="cart-meta-data">
                         <td colspan="2" class="name">
-                            {{ __( 'Subtotal', 'wepos' ) }}
-                            <span class="metadata" v-if="settings.woo_tax.wc_tax_display_cart == 'incl'">
-                                {{ __( 'Including Tax', 'wepos' ) }}
-                            </span>
+                            {{ __( 'Hinta (veroton)', 'wepos' ) }}
                         </td>
                         <td class="price">{{ formatPrice( printdata.subtotal ) }}</td>
                     </tr>
                     <tr v-for="(fee,key) in printdata.coupon_lines" class="cart-meta-data">
-                        <td colspan="2" class="name">{{ __( 'Discount', 'wepos' ) }} <span class="metadata">{{ fee.discount_type == 'percent' ? fee.value + '%' : formatPrice( fee.value ) }}</span></td>
+                        <td colspan="2" class="name">{{ __( 'Alennus', 'wepos' ) }} <span class="metadata">{{ fee.discount_type == 'percent' ? fee.value + '%' : formatPrice( fee.value ) }}</span></td>
                         <td class="price">-{{ formatPrice( Math.abs( fee.total ) ) }}</td>
                     </tr>
-                    <tr v-for="(fee,key) in printdata.fee_lines" class="cart-meta-data">
-                        <td colspan="2" class="name">{{ __( 'Fee', 'wepos' ) }} <span class="metadata">{{ fee.fee_type == 'percent' ? fee.value + '%' : formatPrice( fee.value ) }}</span></td>
-                        <td class="price">{{ formatPrice( Math.abs( fee.total ) ) }}</td>
-                    </tr>
-                    <tr v-if="printdata.taxtotal">
-                        <td colspan="2" class="name">{{ settings.woo_tax.wc_tax_display_cart === 'incl' && settings.wepos_general.enable_fee_tax === 'yes' ? __( 'Fee Tax', 'wepos' ) : __( 'Tax', 'wepos' ) }}</td>
+                    <tr>
+                        <td colspan="2" class="name">{{ __( 'Verot (ALV)', 'wepos' ) }}</td>
                         <td class="price">{{ formatPrice(printdata.taxtotal) }}</td>
                     </tr>
                     <tr>
-                        <td colspan="2" class="name">{{ __( 'Order Total', 'wepos' ) }}</td>
+                        <td colspan="2" class="name">{{ __( 'Yhteensä', 'wepos' ) }}</td>
                         <td class="price">{{ formatPrice(printdata.ordertotal) }}</td>
                     </tr>
                     <tr class="divider">

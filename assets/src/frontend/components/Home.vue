@@ -871,7 +871,7 @@ export default {
 
                 // Looping through line items and get total tax for each items.
                 orderResult.line_items.forEach( item => {
-                    totalTaxes[item.product_id] = item.total_tax
+                    totalTaxes[item.product_id] = item.total_tax;
                 } );
 
                 // Preserve total tax amount for each of the line items to the cart.
@@ -890,12 +890,13 @@ export default {
                             }
                         });
 
+
                         this.printdata = wepos.hooks.applyFilters( 'wepos_after_payment_print_data', {
                             line_items: this.cartdata.line_items,
                             fee_lines: this.cartdata.fee_lines,
                             coupon_lines: this.cartdata.coupon_lines,
-                            subtotal: this.$store.getters['Cart/getSubtotal'],
-                            taxtotal: this.$store.getters['Cart/getTotalTax'],
+                            subtotal: this.$store.getters['Cart/getTotalWithoutTax'],
+                            taxtotal: this.$store.getters['Cart/getTotalLineTax'],
                             ordertotal: this.$store.getters['Cart/getTotal'],
                             gateway: {
                                 id: response.payment_method,

@@ -106,6 +106,12 @@ export default {
         getTotal( state, getters ) {
             return getters.getOrderTotal-getters.getTotalDiscount;
         },
+        getTotalWithoutTax( state, getters ) {
+            var total = getters.getOrderTotal;
+            var tax = getters.getTotalLineTax;
+
+            return total - tax;
+        },
         getSettings( state, getters ) {
             return state.settings;
         }
